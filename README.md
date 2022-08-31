@@ -1,1 +1,6 @@
-## This repo will be used to release our code of "Fast and Lightweight Scene Regressor for Camera Re-Localization" Paper
+# Feat2Map
+This is a Pytorch implementation of our paper "Fast and Lightweight Scene Regressor for Camera Re-Localization" by Thuan B. Bui, Dinh-Tuan Tran, and Joo-Ho Lee
+
+The code will be release soon. 
+
+![Alt Text](demo/chess_test.gif)

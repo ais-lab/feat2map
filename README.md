@@ -1,5 +1,5 @@
-# Feat2Map  
-This is a Pytorch implementation of our paper "Fast and Lightweight Scene Regressor for Camera Re-Localization" by Thuan B. Bui, Dinh-Tuan Tran, and Joo-Ho Lee.
+
+This provides the Pytorch implementation of our work on "descriptors to scene coordinates regression".
 
 The code will be released soon. 
 

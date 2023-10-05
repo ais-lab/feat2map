@@ -39,7 +39,7 @@ For the installation of hloc, you can use the same environment with D2S, just ne
  - [12scenes](http://graphics.stanford.edu/projects/reloc/)
  - [Indoor6](https://github.com/microsoft/SceneLandmarkLocalization)
  - [Cambridge Landmarks](http://mi.eng.cam.ac.uk/projects/relocalisation/#dataset)
- - [BKC Ritsumeikan]()
+ - [BKC Ritsumeikan](https://drive.google.com/file/d/1XEdnrFTzThruG15pW2A_1jYAxtpYbwq5/view?usp=sharing)
 ## Data Preprocessing
  1. You need to run the hloc pipeline to generate the SfM models for each dataset. For example, with 7scenes and Cambridge Landmarks datasets, you can simply run the code provided by hloc from these guides [7scenes pipeline](https://github.com/cvg/Hierarchical-Localization/tree/master/hloc/pipelines/7Scenes) and [Cambridge pipeline](https://github.com/cvg/Hierarchical-Localization/tree/master/hloc/pipelines/Cambridge). Since the rest datasets are not supported by hloc, we provide the script to run the hloc on them in here. Please create the folder and run the commands to generate SfM models as above.
  

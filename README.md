@@ -10,7 +10,7 @@ This repository contains the Pytorch implementation of our papers:
 - [D2S: Representing Local Descriptors and Global Scene Coordinates for Camera Relocalization](https://thpjp.github.io/d2s/)
 - [Fast and Lightweight Scene Regressor for Camera Relocalization](https://arxiv.org/abs/2212.01830)
 
-# Installation
+## Installation
 D2S is based on PyTorch. The main framework is implemented in Python, including data processing and setting parameters.
 D2S requires the following Python packages, and we tested it with the package versions in brackets.
 ```
@@ -33,14 +33,14 @@ feat2map
 │   ├── Hierarchical_Localization
  ```
 For the installation of hloc, you can use the same environment with D2S, just need to install some more Python packages that hloc requires. 
-# Dataset 
-## Supported Datasets
+## Dataset 
+### Supported Datasets
  - [7scenes](https://www.microsoft.com/en-us/research/project/rgb-d-dataset-7-scenes/)
  - [12scenes](http://graphics.stanford.edu/projects/reloc/)
  - [Indoor6](https://github.com/microsoft/SceneLandmarkLocalization)
  - [Cambridge Landmarks](http://mi.eng.cam.ac.uk/projects/relocalisation/#dataset)
  - [BKC Ritsumeikan](https://drive.google.com/file/d/1XEdnrFTzThruG15pW2A_1jYAxtpYbwq5/view?usp=sharing)
-## Data Preprocessing
+### Data Preprocessing
  1. You need to run the hloc pipeline to generate the SfM models for each dataset. For example, with 7scenes and Cambridge Landmarks datasets, you can simply run the code provided by hloc from these guides [7scenes pipeline](https://github.com/cvg/Hierarchical-Localization/tree/master/hloc/pipelines/7Scenes) and [Cambridge pipeline](https://github.com/cvg/Hierarchical-Localization/tree/master/hloc/pipelines/Cambridge). Since the rest datasets are not supported by hloc, we provide the script to run the hloc on them in here. Please create the folder and run the commands to generate SfM models as above.
  
  3. Now you can generate training and testing data using this script. Please config the dataset and scene name in the [preprocessing.py](https://github.com/ais-lab/feat2map/blob/main/processing/preprocessing.py) file before running this:
@@ -48,7 +48,7 @@ For the installation of hloc, you can use the same environment with D2S, just ne
 cd processing
 python preprocessing.py
 ```
-# Training & Evaluation
+## Training & Evaluation
 You will need to start a Visdom server for logging the training progress in a different terminal by running:
 ```
 python -m visdom.server -env_path=logs/
@@ -58,7 +58,7 @@ Then execute this command to train and evaluate the results:
 sh run_train_eval.sh
 ```
 
-# BibTex Citation 
+## BibTex Citation 
 If you find this project useful, please cite:
 ```
 @article{bui2023d2s,

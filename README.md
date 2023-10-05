@@ -48,7 +48,7 @@ For the installation of hloc, you can use the same environment with D2S, just ne
 cd processing
 python preprocessing.py
 ```
-## Training & Evaluation
+# Training & Evaluation
 You will need to start a Visdom server for logging the training progress in a different terminal by running:
 ```
 python -m visdom.server -env_path=logs/
@@ -58,7 +58,7 @@ Then execute this command to train and evaluate the results:
 sh run_train_eval.sh
 ```
 
-## BibTex Citation 
+# BibTex Citation 
 If you find this project useful, please cite:
 ```
 @article{bui2023d2s,

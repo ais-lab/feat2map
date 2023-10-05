@@ -20,6 +20,11 @@ Pillow (9.4.0)
 h5py (3.8.0)
 visdom (0.2.4)
 ```
+You can also install the environment using this command: 
+```
+conda env create -f environment.yml
+```
+
 D2S uses [hierarchical localization toolbox](https://github.com/cvg/Hierarchical-Localization)(hloc) to label descriptors coordinates. 
 Please download this toolbox to third_party folder as follows:
  ```

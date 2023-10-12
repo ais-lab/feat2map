@@ -14,7 +14,7 @@ This repository contains the Pytorch implementation of our papers:
 D2S is based on PyTorch. The main framework is implemented in Python, including data processing and setting parameters.
 D2S requires the following Python packages, and we tested it with the package versions in brackets.
 ```
-pytorch (1.7.0)
+pytorch (1.7.0) # (1.10) also work well
 opencv (4.7.0)
 Pillow (9.4.0)
 h5py (3.8.0)

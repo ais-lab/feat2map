@@ -49,7 +49,7 @@ cd processing
 python preprocessing.py --dataset_dir <path to dataset folder> --dataset <name of the dataset> --scene <name of the scene>
 ```
 <details>
-<summary><span style="font-weight: bold;">Command Line Arguments for train.py</span></summary>
+<summary><span style="font-weight: bold;">Command Line Arguments for preprocessing.py</span></summary>
 
   #### --dataset_dir
   Path to the datset folder (```../third_party/Hierarchical_Localization/datasets/``` by default).

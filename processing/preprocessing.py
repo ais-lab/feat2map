@@ -13,10 +13,12 @@ import os
 sys.path.append(osp.join(osp.dirname(__file__), ".."))
 from utils.read_write_model import read_model, read_images_text, read_images_binary
 import utils.utils as uuls 
-import h5py 
+import h5py
+import argparse 
 from tqdm import tqdm
 import numpy as np
 import pandas as pd
+
 
 import copy
 
@@ -588,14 +590,8 @@ def processing_unlabeldata(dataset:str, dataset_dir:str, scene:str, out_dir:str,
 
 
 
-if __name__ == "__main__":
+def main(argv):
     os.environ["CUDA_VISIBLE_DEVICES"] = '1'
-    dataset = "Cambridge"
-    scene = "KingsCollege"
-    process_train_data_augmentation = True   # do augmentation for training data.
-    process_unlabel_data = False # generate pseudo data from unlabels.
-    process_unlabel_data_pls_augment = False # do augmentation on unlabel data.
-
     configs = {
             'extractor':{
                 'superpoint': {
@@ -629,12 +625,44 @@ if __name__ == "__main__":
     #             'interpolation': 'pil_linear', 
     #             }
     #     }
-    # ---------------
-    hloc_out_dir = "../third_party/Hierarchical_Localization/outputs/"
-    dataset_dir = "../third_party/Hierarchical_Localization/datasets/"
-    out_dir = "../dataset/"
+    # ---------------Initializing the parameters -----------------
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--dataset_dir', 
+                        type=str, 
+                        default="../third_party/Hierarchical_Localization/datasets/", 
+                        help="Dataset directory")
+    parser.add_argument('--dataset',
+                        type=str,
+                        default="Cambridge",
+                        help="Name of the dataset")
+    parser.add_argument('--scene',
+                        type=str,
+                        default="KingsCollege",
+                        help="Name of the scene")
+    parser.add_argument('--hloc_out_dir',
+                        type=str,
+                        default="../third_party/Hierarchical-Localization/outputs/",
+                        help="Directory where you store result after running hloc")
+    parser.add_argument('--out_dir', 
+                        type=str, 
+                        default="../dataset",
+                        help="Directory to store dataset after preprocess")
+    parser.add_argument('--process_train_data_augmentation',
+                        type=bool,
+                        default=True,
+                        help="Do augmentation for training data")
+    parser.add_argument('--process_unlabel_data',
+                        type=bool,
+                        default=False,
+                        help="Generate pseudo data from unlabels")
+    parser.add_argument('--process_unlabel_data_pls_augment',
+                        type=bool,
+                        default=False,
+                        help="Do augmentation on unlabel data")
     
-    if dataset == "7scenes" or dataset == "12scenes":
+    args = parser.parse_args()
+
+    if args.dataset == "7scenes" or args.dataset == "12scenes":
         use_depth = True
     else:
         use_depth = False
@@ -642,7 +670,12 @@ if __name__ == "__main__":
 
     # End initializing the parameters
 
-    print("Working on: ", scene, " scene")
-    preprocessing(dataset, hloc_out_dir, dataset_dir, use_depth, scene, out_dir)
-    processing_unlabeldata(dataset, dataset_dir, scene, out_dir, configs, aumgent = process_train_data_augmentation, unlabel = process_unlabel_data, 
-        augment_unlabel = process_unlabel_data_pls_augment)
+    print("Working on: ", args.scene, " scene")
+    preprocessing(args.dataset, args.hloc_out_dir, args.dataset_dir, use_depth, args.scene, args.out_dir)
+    processing_unlabeldata(args.dataset, args.dataset_dir, args.scene, args.out_dir, configs, 
+                            aumgent = args.process_train_data_augmentation, 
+                            unlabel = args.process_unlabel_data, 
+                            augment_unlabel = args.process_unlabel_data_pls_augment)
+
+if __name__ == "__main__":
+    main(sys.argv)

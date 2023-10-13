@@ -44,10 +44,41 @@ For the installation of hloc, you can use the same environment with D2S, just ne
  1. You need to run the hloc pipeline to generate the SfM models for each dataset. For example, with 7scenes and Cambridge Landmarks datasets, you can simply run the code provided by hloc from these guides [7scenes pipeline](https://github.com/cvg/Hierarchical-Localization/tree/master/hloc/pipelines/7Scenes) and [Cambridge pipeline](https://github.com/cvg/Hierarchical-Localization/tree/master/hloc/pipelines/Cambridge). Note that D2S has been tested using a fixed 2048 SuperPoint descriptors per image, please configure this in hloc before execution to produce correct data. Since the rest datasets are not supported by hloc, we will provide the script to run the hloc on them later. Then, please create the folder and run the commands to generate SfM models as same as 7scenes and Cambridge.
  
  3. Now you can generate training and testing data using this script. Please config the dataset and scene name in the [preprocessing.py](https://github.com/ais-lab/feat2map/blob/main/processing/preprocessing.py) file before running this:
-```
+```shell
 cd processing
-python preprocessing.py
+python preprocessing.py --dataset_dir <path to dataset folder> --dataset <name of the dataset> --scene <name of the scene>
 ```
+<details>
+<summary><span style="font-weight: bold;">Command Line Arguments for train.py</span></summary>
+
+  #### --dataset_dir
+  Path to the datset folder (```../third_party/Hierarchical_Localization/datasets/``` by default).
+
+  #### --dataset
+  Name of the datset (Eg: `7scenes`, `Cambridge`).
+
+  #### --scene
+  Name of the scene (Eg: `chess`, `fire`).
+
+  #### --hloc_out_dir
+  Path to the directory where you store the result after running hloc (```../third_party/Hierarchical-Localization/outputs/``` by default).
+
+  #### --out_dir
+  Path to the output directory (```../dataset``` by default).
+
+  #### --process_train_data_augmentation
+  Option to perform data augmentation on training data (```True``` by default).
+
+  #### --process_unlabel_data
+  Generate pseudo data from unlabels (```False``` by default).
+
+  #### --process_unlabel_data_pls_augment
+  Do augmentation on unlabel data (```False``` by default).
+
+  
+
+</details>
+
 ## Training & Evaluation
 You will need to start a Visdom server for logging the training progress in a different terminal by running:
 ```

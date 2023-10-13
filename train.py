@@ -56,7 +56,7 @@ with open(args.config_file, 'r') as f:
 
 # load dataset
 # data loader configs
-dataset_dir = "/home/thuan/Desktop/GITHUB/FeatLoc_preparation/dataset/Hierarchical_Localization/datasets/"
+dataset_dir = "third_party/Hierarchical_Localization/datasets/"
 import os.path as osp
 if args.dataset == "7scenes":
     data_dir = osp.join(dataset_dir, args.dataset, args.scene)

@@ -14,7 +14,7 @@ This repository contains the Pytorch implementation of our papers:
 D2S is based on PyTorch. The main framework is implemented in Python, including data processing and setting parameters.
 D2S requires the following Python packages, and we tested it with the package versions in brackets.
 ```
-pytorch (1.7.0)
+pytorch (>=1.7.0)
 opencv (4.7.0)
 Pillow (9.4.0)
 h5py (3.8.0)
@@ -41,7 +41,7 @@ For the installation of hloc, you can use the same environment with D2S, just ne
  - [Cambridge Landmarks](http://mi.eng.cam.ac.uk/projects/relocalisation/#dataset)
  - [BKC Ritsumeikan](https://drive.google.com/file/d/1XEdnrFTzThruG15pW2A_1jYAxtpYbwq5/view?usp=sharing)
 ### Data Preprocessing
- 1. You need to run the hloc pipeline to generate the SfM models for each dataset. For example, with 7scenes and Cambridge Landmarks datasets, you can simply run the code provided by hloc from these guides [7scenes pipeline](https://github.com/cvg/Hierarchical-Localization/tree/master/hloc/pipelines/7Scenes) and [Cambridge pipeline](https://github.com/cvg/Hierarchical-Localization/tree/master/hloc/pipelines/Cambridge). Since the rest datasets are not supported by hloc, we will provide the script to run the hloc on them later. Then, please create the folder and run the commands to generate SfM models as same as 7scenes and Cambridge.
+ 1. You need to run the hloc pipeline to generate the SfM models for each dataset. For example, with 7scenes and Cambridge Landmarks datasets, you can simply run the code provided by hloc from these guides [7scenes pipeline](https://github.com/cvg/Hierarchical-Localization/tree/master/hloc/pipelines/7Scenes) and [Cambridge pipeline](https://github.com/cvg/Hierarchical-Localization/tree/master/hloc/pipelines/Cambridge). Note that D2S has been tested using a fixed 2048 SuperPoint descriptors per image, please configure this in hloc before execution to produce correct data. Since the rest datasets are not supported by hloc, we will provide the script to run the hloc on them later. Then, please create the folder and run the commands to generate SfM models as same as 7scenes and Cambridge.
  
  3. Now you can generate training and testing data using this script. Please config the dataset and scene name in the [preprocessing.py](https://github.com/ais-lab/feat2map/blob/main/processing/preprocessing.py) file before running this:
 ```shell

@@ -1,4 +1,6 @@
 # D2S: Representing descriptors and scene coordinates
+## Introduction  
+D2S is a learning-based visual re-localization method. It concentrates on learning to generate 3D scene coordinates from sparse descriptors extracted from a single image. Once trained for a specific sparse SfM scene, D2S can accurately estimate the camera’s position and orientation from a new image of the scene. D2S also serves as a natural filter for outliers and non-robust descriptors, resulting in an enhanced localization accuracy down the line.
 
 <p align="center">
 <img src="imgs/D2S.jpg">

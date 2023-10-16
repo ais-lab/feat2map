@@ -6,6 +6,10 @@ Authors: [Bach-Thuan Bui](https://thuanbb.github.io/), [Dinh-Tuan Tran](https://
 <img src="imgs/D2S.jpg">
 <p>
 
+<p align="center">
+<img src="imgs/7scenes_results.jpg">
+<p>
+
 This repository contains the Pytorch implementation of our papers: 
 - [D2S: Representing Local Descriptors and Global Scene Coordinates for Camera Relocalization](https://thpjp.github.io/d2s/)
 - [Fast and Lightweight Scene Regressor for Camera Relocalization](https://arxiv.org/abs/2212.01830)

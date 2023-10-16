@@ -2,7 +2,7 @@
 
 - [Introduction](#introduction)
 - [Installation](#installation)
-- [Dataset](#data-structure)
+- [Dataset](#dataset)
     - [Supported Datasets](#supported-datasets)
     - [Data Preprocessing](#data-preprocessing)
 - [Training & Evaluation](#training-&-evaluation)

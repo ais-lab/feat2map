@@ -1,7 +1,5 @@
 # D2S: Representing descriptors and scene coordinates
 
-Authors: [Bach-Thuan Bui](https://thuanbb.github.io/), [Dinh-Tuan Tran](https://sites.google.com/view/tuantd/) and [Joo-Ho Lee](https://research-db.ritsumei.ac.jp/rithp/k03/resid/S000220;jsessionid=8CC0520A8C7C1F3D502596F0A07D64B0?lang=en)
-
 <p align="center">
 <img src="imgs/D2S.jpg">
 <p>

@@ -1,4 +1,4 @@
-# D2S: Representing descriptors and scene coordinates. [Project Page](https://thpjp.github.io/d2s/)
+# D2S: Representing sparse descriptors and scene coordinates. [Project Page](https://thpjp.github.io/d2s/)
 
 - [Introduction](#introduction)
 - [Installation](#installation)

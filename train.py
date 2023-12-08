@@ -38,11 +38,11 @@ parser.add_argument('--augment', type=int, default=0, choices =[0,1],
 parser.add_argument('--cudaid', type=int, 
                     default=1)
 parser.add_argument('--use_mean', type=bool, default=0,
-                    help='Resume optimization (only effective if a checkpoint is given')
+                    help='')
 parser.add_argument('--unlabel', type=bool, default=0,
-                    help='Resume optimization (only effective if a checkpoint is given')
+                    help='use unlabeled data for training')
 parser.add_argument('--unlabel_rate', type=float, default=1.0,
-                    help='Resume optimization (only effective if a checkpoint is given')
+                    help='')
 
 
 

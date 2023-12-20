@@ -45,8 +45,8 @@ parser.add_argument('--unlabel', type=bool, default=0,
                     help='was model trained with unlabel?')
 parser.add_argument('--unlabel_rate', type=float, default=1.0,
                     help='percentage of unlabel data used to train')
-parser.add_argument('--augment', type=bool, default=0,
-                    help='applied data augementation or not')
+parser.add_argument('--augment', type=int, default=0, choices =[0,1],
+                    help='apply data augementation or not')
 parser.add_argument('--idx_eval', type=int, default=0,
                     help='threshold of evaluation 0 (5cm),1 (15cm), etc,...')
 

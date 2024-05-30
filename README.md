@@ -6,6 +6,7 @@
     - [Supported Datasets](#supported-datasets)
     - [Data Preprocessing](#data-preprocessing)
 - [Training & Evaluation](#training-&-evaluation)
+    - [Pre-trained models](#pre-train-model) 
 - [BibTex Citation](#bibTex-citation)
 
 ## Introduction  
@@ -105,6 +106,8 @@ For evaluating a single checkpoint, example:
 ```
 python eval.py --dataset 7scenes --scene chess --config_file configs/configsV2.ini --model 2 --cudaid 0 --single 1 --epoch 900
 ```
+### Pre-trained models
+- [7scenes](https://drive.google.com/file/d/1bQNctr2lpFVIhw2DjAmcpzwE-RdRD-yG/view?usp=sharing)
 
 ## BibTex Citation 
 If you find this project useful, please cite:

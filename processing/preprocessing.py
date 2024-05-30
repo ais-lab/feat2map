@@ -58,7 +58,7 @@ def preprocessing(dataset:str, hloc_out_dir:str, dataset_dir:str, \
     None.
 
     """
-    print("--------  Generating Training and Testing data ---------  \n")
+    print("--------  Generating Training and Testing data ---------  ")
 
     if dataset == "7scenes":
         sift_sfm_dir = osp.join(dataset_dir, dataset, "7scenes_sfm_triangulated" ,\
@@ -116,6 +116,8 @@ def preprocessing(dataset:str, hloc_out_dir:str, dataset_dir:str, \
         
     out_dir = uuls.makedir_OutScene(out_dir, dataset, scene)
     if out_dir is None:
+        print(f"[INFOR] The output directory has been created, if you want to re-run, \
+              please delete the folder: dataset\{dataset}\{scene}")
         print("-------------- DONE -------------- \n")
         return 0
     
@@ -229,13 +231,13 @@ def gen_dict2trainInfor(path):
     return out_data, out_pose_camera_list
 
 
-def read_image(ref_path, grayscale=False, aumgent = False, unlabel = False, only_brightness=False):
+def read_image(ref_path, grayscale=False, do_augmentation = False, unlabel = False, only_brightness=False):
     img = Image.open(ref_path)
     if img is None:
         raise ValueError('Cannot read image {}'.format(ref_path))
     if grayscale:
         img = img.convert('L')
-        if aumgent:
+        if do_augmentation:
             if unlabel:
                 br_factor = random.uniform(0.4, 0.8)
                 img = F.adjust_brightness(img, br_factor)
@@ -288,27 +290,16 @@ def resize_image(image, size, interp):
     return resized
 
 
-
-
 def map_tensor(input_, func):
     if isinstance(input_, torch.Tensor):
         return func(input_)
-    elif isinstance(input_, string_classes):
-        return input_
-    elif isinstance(input_, collections.Mapping):
-        return {k: map_tensor(sample, func) for k, sample in input_.items()}
-    elif isinstance(input_, collections.Sequence):
-        return [map_tensor(sample, func) for sample in input_]
     else:
         raise TypeError(
             f'input must be tensor, dict or list; found {type(input_)}')
 
 
-
-
-
 def processing_unlabeldata(dataset:str, dataset_dir:str, scene:str, out_dir:str, configs:dict,
-    aumgent = False, unlabel = False, augment_unlabel=False):
+    do_augmentation = False, unlabel = False, augment_unlabel=False):
     print("--------  Generating Pseudo data from unlabeled ones ---------")
 
     mode = "unlabel"
@@ -323,7 +314,7 @@ def processing_unlabeldata(dataset:str, dataset_dir:str, scene:str, out_dir:str,
         top_matches_dir = osp.join(out_dir, dataset, scene + "-netvlad10.txt")
         train_dir = osp.join(out_dir, dataset, scene, "train")
         if Extractor == 'superpoint':
-        	configs['extractor']['superglue']['weights'] = 'outdoor'
+            configs['extractor']['superglue']['weights'] = 'outdoor'
     elif dataset =="12scenes":
         data_dir = osp.join(dataset_dir, dataset, scene)
     elif dataset == "indoor6":
@@ -349,20 +340,20 @@ def processing_unlabeldata(dataset:str, dataset_dir:str, scene:str, out_dir:str,
     name2infors, pose_camera_list = gen_dict2trainInfor(train_dir)
     device = 'cuda' if torch.cuda.is_available() else 'cpu' 
     if Extractor == "sift":
-    	device ='cpu' 
+        device ='cpu' 
     matching = Matching(configs).eval().to(device)
 
-    def run_single_data(configs, tmp_match_dict, path_out, iii, aumgent, start_id, unlabel):
+    def run_single_data(configs, tmp_match_dict, path_out, iii, do_augmentation, start_id, unlabel):
         
         unlabeled_name = list(tmp_match_dict.keys())[iii]
         matches_list = tmp_match_dict[unlabeled_name]
         
-        if aumgent and (unlabel is False) and (random.random() > 0.4):
+        if do_augmentation and (unlabel is False) and (random.random() > 0.4):
             only_brightness = True
         else:
             only_brightness = False
         
-        def do_matching(configs, tmp_match_dict, path_out, iii, aumgent, start_id, unlabel, vlad_i, unlabeled_name, matches_list):
+        def do_matching(configs, tmp_match_dict, path_out, iii, do_augmentation, start_id, unlabel, vlad_i, unlabeled_name, matches_list):
             labeled_name = matches_list[vlad_i]
             name_train = name2infors[labeled_name][0]
             name_target = name2infors[labeled_name][1]
@@ -380,7 +371,7 @@ def processing_unlabeldata(dataset:str, dataset_dir:str, scene:str, out_dir:str,
                 labeled_target[k] = v.__array__()
      
 
-            unlabeled_img_pill = read_image(osp.join(data_dir, unlabeled_name), configs['process_image']['grayscale'], aumgent, unlabel, only_brightness)
+            unlabeled_img_pill = read_image(osp.join(data_dir, unlabeled_name), configs['process_image']['grayscale'], do_augmentation, unlabel, only_brightness)
 
             labeled_image_pill = read_image(osp.join(data_dir, labeled_name), configs['process_image']['grayscale'])
     
@@ -498,7 +489,7 @@ def processing_unlabeldata(dataset:str, dataset_dir:str, scene:str, out_dir:str,
         save_target_list = []
         for vlad_i in range(10):
             save_data, tmp_save_target = do_matching(configs, tmp_match_dict, path_out, 
-                iii, aumgent, start_id, unlabel, vlad_i, unlabeled_name, matches_list)
+                iii, do_augmentation, start_id, unlabel, vlad_i, unlabeled_name, matches_list)
             save_target_list.append(tmp_save_target)
             if not unlabel: 
                 break
@@ -509,7 +500,7 @@ def processing_unlabeldata(dataset:str, dataset_dir:str, scene:str, out_dir:str,
             save_target = tmp_save_target
             num_success_matched = len(save_target["p3D_ids"][save_target["p3D_ids"] != -1])
            
-        if aumgent and (unlabel is False) and only_brightness:
+        if do_augmentation and (unlabel is False) and only_brightness:
             pose = pose_camera_list[iii][:7].to_numpy()
             camera = pose_camera_list[iii][7:].to_numpy()
         else:
@@ -543,8 +534,8 @@ def processing_unlabeldata(dataset:str, dataset_dir:str, scene:str, out_dir:str,
         return num_success_matched
 
     start_id = 0
-    if aumgent:
-        print("--------------Augmenting-------------------- \n")
+    if do_augmentation:
+        print("--------------Processing Augmentation-------------------- \n")
 
         # for augmentation the training data. 
         path_out = osp.join(out_dir, dataset, scene, "augment")
@@ -592,7 +583,7 @@ def processing_unlabeldata(dataset:str, dataset_dir:str, scene:str, out_dir:str,
 
 def main(argv):
     os.environ["CUDA_VISIBLE_DEVICES"] = '1'
-    configs = {
+    configs_superpoint = {
             'extractor':{
                 'superpoint': {
                     'nms_radius': 3,
@@ -612,19 +603,19 @@ def main(argv):
                 'interpolation': 'pil_linear', 
                 }
         }
-    # configs = {
-    #         'extractor':{
-    #             'sift': {
-    #                 'max_keypoints': 2048
-    #             },
-    #         },
-    #         "process_image":
-    #             {
-    #             'grayscale': True,
-    #             'resize_max': 1600, 
-    #             'interpolation': 'pil_linear', 
-    #             }
-    #     }
+    configs_sift = {
+            'extractor':{
+                'sift': {
+                    'max_keypoints': 2048
+                },
+            },
+            "process_image":
+                {
+                'grayscale': True,
+                'resize_max': 1600, 
+                'interpolation': 'pil_linear', 
+                }
+        }
     # ---------------Initializing the parameters -----------------
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset_dir', 
@@ -633,11 +624,11 @@ def main(argv):
                         help="Dataset directory")
     parser.add_argument('--dataset',
                         type=str,
-                        default="Cambridge",
+                        default="7scenes",
                         help="Name of the dataset")
     parser.add_argument('--scene',
                         type=str,
-                        default="KingsCollege",
+                        default="chess",
                         help="Name of the scene")
     parser.add_argument('--hloc_out_dir',
                         type=str,
@@ -649,7 +640,7 @@ def main(argv):
                         help="Directory to store dataset after preprocess")
     parser.add_argument('--process_train_data_augmentation',
                         type=bool,
-                        default=True,
+                        default=False,
                         help="Do augmentation for training data")
     parser.add_argument('--process_unlabel_data',
                         type=bool,
@@ -672,10 +663,11 @@ def main(argv):
 
     print("Working on: ", args.scene, " scene")
     preprocessing(args.dataset, args.hloc_out_dir, args.dataset_dir, use_depth, args.scene, args.out_dir)
-    processing_unlabeldata(args.dataset, args.dataset_dir, args.scene, args.out_dir, configs, 
-                            aumgent = args.process_train_data_augmentation, 
-                            unlabel = args.process_unlabel_data, 
-                            augment_unlabel = args.process_unlabel_data_pls_augment)
+    if args.process_unlabel_data:
+        processing_unlabeldata(args.dataset, args.dataset_dir, args.scene, args.out_dir, configs=configs_superpoint, 
+                                do_augmentation = args.process_train_data_augmentation, 
+                                unlabel = args.process_unlabel_data, 
+                                augment_unlabel = args.process_unlabel_data_pls_augment)
 
 if __name__ == "__main__":
     main(sys.argv)

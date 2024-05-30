@@ -28,7 +28,7 @@ class Timer:
     def stop(self):
         self.list_time.append(time.time() - self.start_time)
     def eval(self):
-        print("------- mean of {} is {} --------".format(self.subject, sum(self.list_time)/len(self.list_time)))
+        print("[INFOR] Average {} time {:.4f}s".format(self.subject, sum(self.list_time)/len(self.list_time)))
 
 
 def qexp(q):
@@ -215,8 +215,7 @@ class Evaluator(object):
         d2s_time_test.eval()
         pnp_time_test.eval()  
 
-        print("Number of test features: {}".format(np.mean(list_num_test_features)))
-        print("TIME IS: {}".format((time.time()-start_time)/60))
+        print("Average number of fine keypoints (removed uncertainty ones): {}".format(np.mean(list_num_test_features)))
         
         predict_test_points.save(self.prd_test_path)
         prd_poses_test.save(self.prd_test_path)
@@ -225,11 +224,11 @@ class Evaluator(object):
         
         # evaluate the predicted camera poses
         if self.eval_train:
-            print("--- Training data (3Dmap_branch): ")
+            print("[INFOR] Eval on training set: ")
             evaluate_poses(osp.join(self.data_path, "train", "readme.txt"), 
                             self.prd_train_path+".txt", False)
         
-        print("--- Testing data (3Dmap_branch): ")
+        print("[INFOR] Eval on testing set: ")
         mea_t, med_R, ratio = evaluate_poses(osp.join(self.data_path, "test", "readme.txt"), 
                        self.prd_test_path+".txt", True)
         

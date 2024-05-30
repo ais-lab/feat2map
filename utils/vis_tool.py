@@ -49,8 +49,7 @@ class Poses(object):
             self.inliners.append(num_inliners)
             self.names.append(name)
     def save(self, file):
-        print(self.data.shape)
-        print("Avg. number of inliers: {}".format(np.mean(self.inliners)))
+        print("Average number of inliers: {}".format(np.mean(self.inliners)))
         length = len(self.inliners)
         
         if self.test_data: # DSACSTAR eval
@@ -153,8 +152,8 @@ def evaluate_poses(gt_path, prd_path, mode=False, plot=False, seqid = None):
     print('Median errors: {:.4f}m, {:.4f}deg'.format(med_t, med_R))
 
     print('Percentage of test images localized within:')
-    threshs_t = [0.01, 0.02, 0.03, 0.05, 0.15 ,0.22, 0.35, 0.38, 0.5]
-    threshs_R = [1.0, 2.0, 3.0, 5.0, 360.0 ,360.0, 360.0, 10.0, 10]
+    threshs_t = [0.01, 0.02, 0.03, 0.05, 0.1]
+    threshs_R = [1.0, 2.0, 3.0, 5.0, 10.0]
     ratios = []
     for th_t, th_R in zip(threshs_t, threshs_R):
         ratio = np.mean((errors_t < th_t) & (errors_R < th_R))

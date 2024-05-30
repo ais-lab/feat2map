@@ -104,8 +104,15 @@ sh run_train_eval.sh
 ```
 For evaluating a single checkpoint, example:
 ```
-python eval.py --dataset 7scenes --scene chess --config_file configs/configsV2.ini --model 2 --cudaid 0 --single 1 --epoch 900
+python eval.py --dataset 7scenes --scene chess --checkpoint /home/thuan/Desktop/pre-trained-model-d2s/7scenes/chess.pth.tar
 ```
+
+You can receive a result like this:
+
+<p align="center">
+<img src="imgs/example_chess.png">
+<p>
+
 ### Pre-trained models
 - [7scenes](https://drive.google.com/file/d/1bQNctr2lpFVIhw2DjAmcpzwE-RdRD-yG/view?usp=sharing)
 

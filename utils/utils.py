@@ -6,7 +6,6 @@ Created on Fri Jul 15 13:29:13 2022
 @author: thuan
 """
 
-
 import os
 import pandas as pd
 import cv2

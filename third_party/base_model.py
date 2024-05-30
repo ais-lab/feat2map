@@ -45,4 +45,3 @@ def dynamic_load(root, model):
     classes = [c for c in classes if issubclass(c[1], BaseModel)]
     assert len(classes) == 1, classes
     return classes[0][1]
-    # return getattr(module, 'Model')

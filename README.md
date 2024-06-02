@@ -98,9 +98,9 @@ You will need to start a Visdom server for logging the training progress in a di
 ```
 python -m visdom.server -env_path=logs/
 ```
-Then execute this command to train and evaluate the results:
+Then execute this command to train:
 ```
-sh run_train_eval.sh
+python train.py --dataset 7scenes --scene chess --config_file configs/configsV2.ini --model 2 --cudaid 0 --augment 0
 ```
 For evaluating a single checkpoint, example:
 ```

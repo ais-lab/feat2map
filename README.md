@@ -1,4 +1,5 @@
-# D2S: Representing sparse descriptors and scene coordinates for visual relocalization. [Project Page](https://thpjp.github.io/d2s/)
+# Old version code of Representing sparse descriptors and scene coordinates for visual relocalization. 
+Checkout enhanced implementation version here: [Project Page](https://thpjp.github.io/d2s/)
 
 - [Introduction](#introduction)
 - [Installation](#installation)

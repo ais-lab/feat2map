@@ -39,9 +39,12 @@ class Pipeline(BaseModel):
         checkpoint_dict =\
             {'epoch': epoch, 'model_state_dict': self.regressor.state_dict()}
         torch.save(checkpoint_dict, filename)
-    def load_checkpoint(self, path, exp_name):
+    def load_checkpoint(self, path, exp_name=None):
         ''' Load regressor checkpoint from path'''
-        filename = osp.join(path, '{}.pth.tar'.format(exp_name))
+        if exp_name is not None:
+            filename = osp.join(path, '{}.pth.tar'.format(exp_name))
+        else:
+            filename = path
         if not osp.exists(filename):
             raise FileNotFoundError(f'Cannot find checkpoint at {filename}')
         devide = torch.device(f'cuda:{torch.cuda.current_device()}' \

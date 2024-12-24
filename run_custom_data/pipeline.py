@@ -14,6 +14,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from util.read_write_model import read_model
 import random
+from run_custom_data.directSfM_pipeline import direct_sfm
 
 
 def re_triangulation(args, colmap_sfm="colmap_sift/sparse/0", test_rate=0.1):
@@ -45,7 +46,7 @@ def re_triangulation(args, colmap_sfm="colmap_sift/sparse/0", test_rate=0.1):
     reference_sfm, outputs / colmap_sfm, images, sfm_pairs, features, sfm_matches
     )
     create_test_list(reference_sfm, args.workspace_path, test_rate=0.1)
-    print(f"Randomly selected {test_rate} test images saved in 'test_list.txt'")
+    print(f"Randomly selecte {test_rate} test images and save in 'test_list.txt'")
 
 def run_colmap(confs):
     workspace_path = confs.workspace_path
@@ -94,7 +95,13 @@ def create_test_list(reference_sfm, workspace_path, test_rate=0.1):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("workspace_path", default="../custom_dataset", type=Path)
+    parser.add_argument("--use_colmap", action='store_true' , help='use pre-trained model')
     args = parser.parse_args()
-    run_colmap(args)
-    re_triangulation(args)
+    if args.use_colmap:
+        print("use_colmap")
+        # run_colmap(args)
+        re_triangulation(args, colmap_sfm="sparse/0")
+    else:
+        direct_sfm(str(args.workspace_path))
+        create_test_list(args.workspace_path / "sfm_superpoint+superglue/models", args.workspace_path, test_rate=0.1)
     

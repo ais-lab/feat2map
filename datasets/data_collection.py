@@ -192,7 +192,10 @@ class DataCollection(Base_Collection):
             with open(test_path, 'r') as f:
                 testlist = f.read().rstrip().split('\n')
         else:
-            raise ValueError("Error! Input file/directory {0} not found.".format(test_path))
+            from run_custom_data.pipeline import create_test_list
+            create_test_list(self.args.sfm_dir, self.args.dataset_dir)
+            with open(test_path, 'r') as f:
+                testlist = f.read().rstrip().split('\n')
         
         for _, image in images_train.items():
             img_name = image.name

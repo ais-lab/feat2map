@@ -85,7 +85,7 @@ if __name__ == "__main__":
     # setup model and load pre-trained weight
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = Pipeline(cfg)
-    model.load_checkpoint_from_path(model_path)
+    model.load_checkpoint(model_path)
     model.to(device)
     # load data 
     resize_max = cfg.point2d.detector.preprocessing.resize_max

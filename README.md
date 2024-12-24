@@ -34,7 +34,7 @@ This repository contains the Pytorch implementation of our papers:
 Todo list:
 - [x] release code
 - [x] run with custom data 
-- [ ] add inference with pre-trained models
+- [x] add inference with pre-trained models
 
 ## Installation
 D2S is based on PyTorch. The main framework is implemented in Python.
